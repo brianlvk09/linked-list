@@ -24,8 +24,8 @@ class Node:
     """
 
     def __init__(self, data: tuple[int, int]):
-        # Replace the line below with your code
-        raise NotImplementedError
+        self.data = data
+        self.next = None
 
     def __repr__(self) -> str:
         return f'Node({self.get()})'
@@ -39,8 +39,8 @@ class Node:
         Return
             tuple[int, int]
         """
-        # Replace the line below with your code
-        raise NotImplementedError
+
+        return self.data
 
 
 class LinkedList:
@@ -75,9 +75,13 @@ class LinkedList:
         Return
             length of linkedlist as an integer (zero or positive)
         """
-        # Replace the line below with your code
-        raise NotImplementedError
+        count = 0
+        current = self._head  
+        while current is not None:
+            count += 1
+            current = current.next
 
+        return count
     def get(self, n: int) -> tuple[int, int]:
         """Returns item at n-th node.
 
@@ -120,8 +124,14 @@ class LinkedList:
         Returns
             None
         """
-        # Replace the line below with your code
-        raise NotImplementedError
+        new_node = Node(item)
+        current = self._head
+        if self._head is None:
+            self._head = new_node
+            return
+        while current.next is not None:
+            current = current.next
+        current.next = new_node
 
     def delete(self, n: int) -> None:
         """Delete n-th item from linkedlist.
@@ -133,8 +143,23 @@ class LinkedList:
         Raises
             IndexError if n >= length
         """
-        # Replace the line below with your code
-        raise NotImplementedError
+        if n < 0:
+            raise IndexError("n must be 0 or positive")
+        if self._head is None:
+            raise IndexError("linked list is empty")
+        if n == 0: #head deletion
+            self._head = self._head.next
+            return
+        prev = self._head
+        while(
+            n > 1
+            and prev.next is not None
+        ):
+            prev = prev.next
+            n -= 1
+            if prev.next is None:
+                raise IndexError("n >= length")
+            prev.next = prev.next.next
        
     def contains(self, item: tuple[int, int]) -> bool:
         """Checks whether an item is in the linkedlist.
