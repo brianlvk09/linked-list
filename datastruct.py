@@ -80,8 +80,8 @@ class LinkedList:
         while current is not None:
             count += 1
             current = current.next
-
         return count
+
     def get(self, n: int) -> tuple[int, int]:
         """Returns item at n-th node.
 
@@ -95,8 +95,14 @@ class LinkedList:
         Raises
             IndexError if n >= length
         """
-        # Replace the line below with your code
-        raise NotImplementedError
+
+        if n < 0 or n >= self.length:
+         raise IndexError
+        current = self._head
+        for i in range(n):
+            current = current.next
+        return current.data
+    
 
     def insert(self, n: int, item: tuple[int, int]) -> None:
         """Insert item into linkedlist at position n.
@@ -111,9 +117,21 @@ class LinkedList:
         Raises
             IndexError if n > length
         """
-        # Replace the line below with your code
-        raise NotImplementedError
 
+        if n > self.length:
+            raise IndexError
+        if n == 0:
+            new_node = Node(item)
+            self._head = new_node
+        if n == self.length:
+            current = self._head
+            for i in range(n):
+                current = current.next
+            new_node.next = current.next
+            current.next = new_node
+        
+
+        
     def append(self, item: tuple[int, int]) -> None:
         """Append item at the end of linkedlist.
 
